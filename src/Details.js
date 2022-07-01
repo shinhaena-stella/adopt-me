@@ -73,6 +73,9 @@ class Details extends Component {
       return <h2>loading ... </h2>
     }
 
+    // testing error
+    // throw new Error("ERROR!!");
+
     const { animal, breed, city, state, description, name, images, showModal } = this.state;
   
     return (

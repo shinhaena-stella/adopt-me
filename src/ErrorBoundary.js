@@ -2,7 +2,7 @@ import { Component } from "react";;
 import { Link, Navigate } from "react-router-dom"
 
 class ErrorBoundary extends Component {
-  state = { hasError: false, redirect: false  };
+  state = { hasError: false, redirect: false };
 
   // react function, asking what would you want to if there's error, come back to the class and rerender to what?
   static getDerivedStateFromError() {
@@ -17,7 +17,7 @@ class ErrorBoundary extends Component {
 
   componentDidUpdate() {
     if (this.state.hasError) {
-      setTimeout(() => this.setState({ redirect: true }), 5000);
+      setTimeout(() => this.setState({ redirect: true }), 3000);
     }
   }
 
