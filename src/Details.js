@@ -1,5 +1,8 @@
 import { Component } from "react";
 import { useParams } from "react-router-dom"; // useParams is the only way to get params from react router 
+import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
+import ThemeContext from "./ThemeContext";
 
 /* internal state would be updated like
 {
@@ -25,7 +28,7 @@ class Details extends Component {
     );
     const json = await res.json();
 
-    /* json looks like
+    /* json looks like:
     {
       "numberOfResults": 1,
       "startIndex": 0,
@@ -65,16 +68,22 @@ class Details extends Component {
     if (this.state.loading) {
       return <h2>loading ... </h2>
     }
-    const { animal, breed, city, state, description, name } = this.state;
+
+    const { animal, breed, city, state, description, name, images } = this.state;
   
     return (
       <div className="details">
+        <Carousel images={images} />
         <div>
           <h1>{name}</h1>
           <h2>
             {animal} - {breed} - {city}, {state}
           </h2>
-          <button>Adopt {name}</button>
+          <ThemeContext.Consumer>
+            {([theme]) => (
+              <button style={{ backgroundColor: theme}}>Adote {name}</button>
+            )}
+          </ThemeContext.Consumer>
           <p>{description}</p>
         </div>
       </div>
@@ -97,9 +106,31 @@ class Details extends Component {
 // If you have a class component that is a route, this is how you can use it, 
 // make a wrapper component that uses the hook you need, and then pass that into the component. 
 
+// And the ErrorBoundary has to be outside of the component we want to track error
+// when the component has error, it crashes and the error bubbles up
+// we want to catch the error, not crashing together with the component
+
 const WrappedDetails = () => {
   const params = useParams();
-  return <Details params={params} />;
+  return (
+    <ErrorBoundary>
+      <Details params={params} />;
+    </ErrorBoundary>
+  )
 };
 
 export default WrappedDetails;
+
+// or instead of using ThemeContext.Consumer you can just pass it (in a functional component)
+
+// const WrappedDetails = () => {
+//   const params = useParams();
+//   const [ theme ] = useContext(ThemeContext);
+//   return (
+//     <ErrorBoundary>
+//       <Details theme={theme} params={params} />;
+//     </ErrorBoundary>
+//   )
+// };
+
+// export default WrappedDetails;
