@@ -1,7 +1,7 @@
 {
   "name": "react-practice-adopt-me",
   "version": "1.0.0",
-  "description": "practice React app from frontmaster course by Brian Holt",
+  "description": "practice React app added more features on top of the app from frontmaster course by Brian Holt",
   "main": "src/App.js",
   "scripts": {
     "dev": "parcel src/index.html",
