@@ -19,11 +19,12 @@ const SearchParams = () => {
 
   async function requestPets() {
     const res = await fetch(
-      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // refactor location to select state
+      `https://api.petfinder.com/v2/animals?type=${animal}&breeds=${breed}`
+      //`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // refactor location to select state
     );
-    const json = await res.json();
-
-    setPets(json.pets);
+    //const json = await res.json();
+console.log(res)
+    setPets(res.animals);
   }
 
   return (
