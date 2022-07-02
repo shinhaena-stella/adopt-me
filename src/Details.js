@@ -18,11 +18,11 @@ const Details = () => {
 
   useEffect(() => {
     requestDetails();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function requestDetails() {
     const res = await fetch (
-      `http://pets-v2.dev-apis.com/pets?id=${id}` // this works only when it's wrapped by wrapper and use useParams
+      `http://pets-v2.dev-apis.com/pets?id=${id}`
     );
     const json = await res.json();
     setLoading(false);
@@ -40,39 +40,38 @@ const Details = () => {
   return (
     <>
     {loading ? (
-      <h2
-      >Loading</h2>
-    ) : (
+      <h2>Loading</h2>
+      ) : (
       <div className="details">
-      <Carousel images={images} />
-      <div>
-      <h1>{name}</h1>
-      <h2>
-      {animal} - {breed} - {location}
-      </h2>
-      <button
-      onClick={toggleModal}
-      style={{ backgroundColor: theme }}
-      >
-      Adopt {name}
-      </button>
-      <p>{description}</p>
-      {showModal ? (
-        <Modal>
+        <Carousel images={images} />
         <div>
-        <h1>Would you like to adopt {name}?</h1>
-        <div className="buttons">
-        <a href="https://bit.ly/pet-adopt">Yes</a>
-        <button onClick={toggleModal}>No</button>
+          <h1>{name}</h1>
+          <h2>
+          {animal} - {breed} - {location}
+          </h2>
+          <button
+            onClick={toggleModal}
+            style={{ backgroundColor: theme }}
+            >
+            Adopt {name}
+          </button>
+          <p>{description}</p>
+          {showModal ? (
+            <Modal>
+            <div>
+              <h1>Would you like to adopt {name}?</h1>
+              <div className="buttons">
+                <a href="https://bit.ly/pet-adopt">Yes</a>
+                <button onClick={toggleModal}>No</button>
+              </div>
+            </div>
+            </Modal>
+          ) : null}
         </div>
-        </div>
-        </Modal>
-        ) : null}
-        </div>
-        </div>
-        )}
-        </>
-      ); 
+      </div>
+    )}
+    </>
+  ); 
 };
 
 export default Details;
