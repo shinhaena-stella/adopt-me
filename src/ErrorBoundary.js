@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 
+// ErrorBoundary works only for class components
 class ErrorBoundary extends Component {
   state = { hasError: false, redirect: false };
   static getDerivedStateFromError() {

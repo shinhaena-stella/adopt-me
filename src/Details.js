@@ -36,7 +36,6 @@ const Details = () => {
 
   const toggleModal = () => setShowModal(!showModal)// if flips the state
 
-  //throw new Error("ERROR");
 
   return (
     <>
