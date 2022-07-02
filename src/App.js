@@ -4,6 +4,7 @@ import { StrictMode, useState } from "react";
 import ThemeContext from "./ThemeContext";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
+import ErrorBoundary from "./ErrorBoundary";
 
 // Link has to be used always inner BrowserRouter
 // to pass id, use the useParams in the Details component 
@@ -13,17 +14,19 @@ const App = () => {
   const theme = useState("pink") // this is the real value that I want to use with theme
   return (
     <StrictMode>
-      <ThemeContext.Provider value={theme}>
-        <BrowserRouter>
-        <header>
-          <Link to="/">Adopt Me!</Link>
-        </header>
-          <Routes> 
-            <Route path="/details/:id" element={<Details />} />
-            <Route path="/" element={<SearchParams />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeContext.Provider>
+        <ThemeContext.Provider value={theme}>
+      <ErrorBoundary>
+          <BrowserRouter>
+          <header>
+            <Link to="/">Adopt Me!</Link>
+          </header>
+            <Routes> 
+                <Route path="/details/:id" element={<Details />} />
+                <Route path="/" element={<SearchParams />} />
+            </Routes>
+          </BrowserRouter>
+      </ErrorBoundary>
+        </ThemeContext.Provider>
     </StrictMode>
   )
 }
